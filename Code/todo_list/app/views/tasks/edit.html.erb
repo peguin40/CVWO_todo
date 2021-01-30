@@ -1,0 +1,16 @@
+<div class="container">
+  <h3>Edit Task</h3>
+  <%= form_for :task, url: "/task/#{@task.id}", method: "post" do |form| %>
+
+    <%= form.label :description, "Description" %>
+    <%= form.text_field :description %>
+
+    <%= form.fields_for :categories do |category| %>
+      <%= form.label :name, "Category" %>
+      <% category_name=(@task.categories[0].nil?) ? "" : @task.categories[0].name %>
+      <%= category.text_field :name, :value => category_name %>
+    <% end %>
+
+    <%= form.submit "Update", class: "waves-effect waves-light btn" %>
+  <% end %>
+</div>

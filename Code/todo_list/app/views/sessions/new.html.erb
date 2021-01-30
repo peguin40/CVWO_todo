@@ -1,0 +1,24 @@
+<div class = "container">
+
+  <h3>Login</h3>
+  <%= form_for(:session, url: login_path) do |f| %>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.email_field :email, autofocus: true, placeholder: "Enter your Email" %>
+        <%= f.label :email, class: "active" %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.password_field :password , placeholder: "Password" %>
+        <%= f.label :password, class: "active" %>
+        <a href=signup_path>Sign Up</a>
+      </div>
+    </div>
+
+    <%= f.submit "Log In", class: "btn btn-primary" %>
+    <br />
+  <% end %>
+</div>

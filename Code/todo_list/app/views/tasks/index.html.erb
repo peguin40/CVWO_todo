@@ -1,0 +1,55 @@
+<br/>
+<div class = "container">
+
+  <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">
+    <i class="material-icons left">add</i>
+    New Task
+  </a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <h4>New Task</h4>
+      <%= form_with(model: @task, local: true) do |form| %>
+        <%= form.label :description, "Description" %>
+        <%= form.text_field :description %>
+        <%= form.submit "Create", class: "waves-effect waves-light btn" %>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-tabs">
+      <ul class="tabs tabs-fixed-width">
+        <li class="tab"><a class="active" href="#tasks">Tasks</a></li>
+        <li class="tab"><a href="#completed">Completed</a></li>
+      </ul>
+    </div>
+    <div class="card-content grey lighten-4">
+      <div id="tasks">
+        <% @current_user.tasks.where(completed: false).each do |task| %>
+          <%= react_component("TodoItem", {id: task.id, description: task.description,
+            completed: task.completed, categories: task.categories}) %>
+        <% end %>
+      </div>
+      <div id="completed">
+        <% @current_user.tasks.where(completed: true).each do |task| %>
+          <%= react_component("TodoItem", {id: task.id, description: task.description,
+            completed: task.completed, categories: task.categories}) %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <p>
+    Click on category labels to search based on category
+    <br/>
+    Currently, each task supports one case-sensitive category
+    <br/>
+    Set category by using the edit function
+    <br/>
+    Javascript seems to malfunction everytime you click a button
+    and requires you to refresh after every action to work
+  </p>
+</div>
